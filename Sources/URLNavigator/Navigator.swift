@@ -5,14 +5,14 @@ import UIKit
 import URLMatcher
 #endif
 
-open class Navigator: NavigatorType {
+@objc open class Navigator: NSObject, NavigatorType {
   open let matcher = URLMatcher()
   open weak var delegate: NavigatorDelegate?
 
   private var viewControllerFactories = [URLPattern: ViewControllerFactory]()
   private var handlerFactories = [URLPattern: URLOpenHandlerFactory]()
 
-  public init() {
+    public override init() {
     // ⛵ I'm a Navigator!
   }
 
