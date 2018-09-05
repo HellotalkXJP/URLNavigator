@@ -6,7 +6,7 @@ import URLMatcher
 #endif
 
 @objc open class Navigator: NSObject, NavigatorType {
-    static let shared: Navigator = Navigator()
+   public static let shared: Navigator = Navigator()
     
   open let matcher = URLMatcher()
   open weak var delegate: NavigatorDelegate?
