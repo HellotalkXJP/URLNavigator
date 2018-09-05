@@ -38,4 +38,32 @@ open class Navigator: NavigatorType {
     return { handler(url, match.values, context) }
   }
 }
+
+extension Navigator {
+    @discardableResult
+    @objc public func push(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+        return self.pushURL(url, context: context, from: from, animated: animated)
+    }
+    
+    @discardableResult
+    @objc public func push(_ viewController: UIViewController, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
+        return self.pushViewController(viewController, from: from, animated: animated)
+    }
+    
+    @discardableResult
+    @objc public func present(_ url: URLConvertible, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+        return self.presentURL(url, context: context, wrap: wrap, from: from, animated: animated, completion: completion)
+    }
+    
+    @discardableResult
+    @objc public func present(_ viewController: UIViewController, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
+        return self.presentViewController(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
+    }
+    
+    @discardableResult
+    @objc public func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
+        return self.openURL(url, context: context)
+    }
+}
+
 #endif
