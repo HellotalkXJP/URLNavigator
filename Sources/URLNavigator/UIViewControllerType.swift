@@ -1,11 +1,11 @@
 #if os(iOS) || os(tvOS)
 import UIKit
 
-@objc public protocol UINavigationControllerType {
+public protocol UINavigationControllerType {
   func pushViewController(_ viewController: UIViewController, animated: Bool)
 }
 
-@objc public protocol UIViewControllerType {
+public protocol UIViewControllerType {
   func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?)
 }
 

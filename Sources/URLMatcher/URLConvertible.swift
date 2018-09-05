@@ -1,7 +1,7 @@
 import Foundation
 
 /// A type which can be converted to an URL string.
-@objc public protocol URLConvertible {
+public protocol URLConvertible {
   var urlValue: URL? { get }
   var urlStringValue: String { get }
 
