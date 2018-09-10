@@ -73,7 +73,7 @@ extension Navigator {
         return Navigator.shared.openURL(url, context:context)
     }
     
-    @objc public class func open(_ url: String, context: Any?) -> Bool {
+    @objc public class func open(_ url: String, context: Any? = nil) -> Bool {
         return Navigator.shared.openURL(url, context:context)
     }
     
