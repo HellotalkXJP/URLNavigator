@@ -69,14 +69,18 @@ import URLMatcher
 }
 
 extension Navigator {
+    
+    @discardableResult
     public class func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
         return Navigator.shared.openURL(url, context:context)
     }
     
+    @discardableResult
     @objc public class func open(_ url: String, context: Any? = nil) -> Bool {
         return Navigator.shared.openURL(url, context:context)
     }
     
+    @discardableResult
     @objc public class func open(_ url: String) -> Bool {
         return Navigator.shared.openURL(url, context:nil)
     }
