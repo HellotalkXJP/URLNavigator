@@ -108,10 +108,10 @@ extension UserViewController: UITableViewDataSource {
 
 extension UserViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    tableView.deselectRow(at: indexPath, animated: false)
-    let repo = self.repos[indexPath.row]
-    let webViewController = self.navigator.present(repo.urlString, wrap: nil)
-    webViewController?.title = "\(self.username)/\(repo.name)"
-    print("[Navigator] push: \(repo.urlString)")
+//    tableView.deselectRow(at: indexPath, animated: false)
+//    let repo = self.repos[indexPath.row]
+//    let webViewController = self.navigator.present(repo.urlString, wrap: nil)
+//    webViewController?.title = "\(self.username)/\(repo.name)"
+//    print("[Navigator] push: \(repo.urlString)")
   }
 }

@@ -39,67 +39,46 @@ import URLMatcher
     guard let handler = self.handlerFactories[match.pattern] else { return nil }
     return { handler(url, match.values, context) }
   }
+    
+    /// 打开一个指定的url，会判断要用push还是present，如果参数里面有isPresent 则用present, 如果没有，则用push
+    ///
+    /// - Parameters:
+    ///   - url: 要打开的url
+    ///   - context: 上下文，可以传delegate,闭包等等
+    /// - Returns: 成功处理返回true,未处理返回false
+    public func openURL(_ url: URLConvertible, context: Any?) -> Bool {
+        /// 先判断是不是handler的形式
+        if let handler = self.handler(for: url, context: context) {
+            return handler()
+        }
+        
+        /// 如果不是handler类型，判断viewController类型
+        if let viewController = self.viewController(for: url, context: context) {
+            let urlPatterns = Array(self.viewControllerFactories.keys)
+            if let match = self.matcher.match(url, from: urlPatterns) {
+                if let _ = match.values["isPresent"] as? Bool {
+                    self.presentViewController(viewController, wrap: nil, from: nil, animated: true, completion: nil)
+                }
+            }
+            
+            self.pushViewController(viewController)
+        }
+        
+        return false
+    }
 }
 
 extension Navigator {
-    
-    @discardableResult
-    @objc public class func push(_ url: String, context: Any? = nil, from: UINavigationController? = nil, animated: Bool = true) -> UIViewController? {
-        return Navigator.shared.pushURL(url, context: context, from: from, animated: animated)
+    public class func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
+        return Navigator.shared.openURL(url, context:context)
     }
     
-    /// oc里面调用的时候，要简化参数
-    @objc public class func push(_ url: String) -> UIViewController? {
-        return Navigator.shared.push(url, context: nil, from: nil, animated: true)
-    }
-    
-    @objc public class func push(_ url: String, context: Any? = nil) -> UIViewController? {
-        return Navigator.shared.push(url, context: context, from: nil, animated: true)
-    }
-    
-    @discardableResult
-    @objc public class func push(_ viewController: UIViewController, from: UINavigationController? = nil, animated: Bool = true) -> UIViewController? {
-        return Navigator.shared.pushViewController(viewController, from: from, animated: animated)
-    }
-    
-    @discardableResult
-    @objc public class func present(_ url: String, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewController? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
-        return Navigator.shared.presentURL(url, context: context, wrap: wrap, from: from, animated: animated, completion: completion)
-    }
-    
-    @discardableResult
-    @objc public class func present(_ viewController: UIViewController, wrap: UINavigationController.Type? = nil, from: UIViewController? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
-        return Navigator.shared.presentViewController(viewController, wrap: wrap, from: from, animated: animated, completion: completion)
-    }
-    
-    @objc public class func present(_ viewController: UIViewController) -> UIViewController? {
-        return Navigator.shared.presentViewController(viewController, wrap: nil, from: nil, animated: true, completion: nil)
-    }
-    
-    @discardableResult
-    @objc public class func open(_ url: String, context: Any? = nil) -> Bool {
-        return Navigator.shared.openURL(url, context: context)
+    @objc public class func open(_ url: String, context: Any?) -> Bool {
+        return Navigator.shared.openURL(url, context:context)
     }
     
     @objc public class func open(_ url: String) -> Bool {
-        return Navigator.shared.openURL(url, context: nil)
-    }
-}
-
-extension Navigator {
-    @discardableResult
-    public class func push(_ url: URLConvertible, context: Any? = nil, from: UINavigationControllerType? = nil, animated: Bool = true) -> UIViewController? {
-        return Navigator.shared.pushURL(url, context: context, from: from, animated: animated)
-    }
-    
-    @discardableResult
-    public class func present(_ url: URLConvertible, context: Any? = nil, wrap: UINavigationController.Type? = nil, from: UIViewControllerType? = nil, animated: Bool = true, completion: (() -> Void)? = nil) -> UIViewController? {
-        return Navigator.shared.presentURL(url, context: context, wrap: wrap, from: from, animated: animated, completion: completion)
-    }
-    
-    @discardableResult
-    public class func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
-        return Navigator.shared.openURL(url, context: context)
+        return Navigator.shared.openURL(url, context:nil)
     }
 }
 

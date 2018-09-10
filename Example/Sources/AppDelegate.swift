@@ -43,10 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     options: [UIApplicationOpenURLOptionsKey: Any] = [:]
   ) -> Bool {
     // Try presenting the URL first
-    if self.navigator?.present(url, wrap: UINavigationController.self) != nil {
-      print("[Navigator] present: \(url)")
-      return true
-    }
+//    if self.navigator?.present(url, wrap: UINavigationController.self) != nil {
+//      print("[Navigator] present: \(url)")
+//      return true
+//    }
 
     // Try opening the URL
     if self.navigator?.open(url) == true {

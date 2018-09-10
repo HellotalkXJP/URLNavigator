@@ -43,7 +43,7 @@ enum NavigationMap {
       let message = url.queryParameters["message"]
       let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
       alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-      navigator.present(alertController)
+//      navigator.present(alertController)
       return true
     }
   }
