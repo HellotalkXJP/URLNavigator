@@ -54,14 +54,14 @@ import URLMatcher
         
         /// 如果不是handler类型，判断viewController类型
         if let viewController = self.viewController(for: url, context: context) {
-            let urlPatterns = Array(self.viewControllerFactories.keys)
-            if let match = self.matcher.match(url, from: urlPatterns) {
-                if let _ = match.values["isPresent"] as? Bool {
-                    self.presentViewController(viewController, wrap: nil, from: nil, animated: true, completion: nil)
-                }
+            
+            if Int(url.queryParameters["isPresent"] ?? "0") == 1 {
+                self.presentViewController(viewController, wrap: nil, from: nil, animated: true, completion: nil)
+                return true
             }
             
             self.pushViewController(viewController)
+            return true
         }
         
         return false
