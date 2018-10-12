@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "URLNavigator"
-  s.version          = "0.0.2"
+  s.version          = "0.0.3"
   s.summary          = "⛵️ Elegant URL Routing for Swift"
   s.homepage         = "https://github.com/chinabrant/URLNavigator"
   s.license          = { :type => "MIT", :file => "LICENSE" }

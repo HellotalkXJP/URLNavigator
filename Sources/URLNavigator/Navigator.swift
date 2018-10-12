@@ -46,7 +46,7 @@ import URLMatcher
     ///   - url: 要打开的url
     ///   - context: 上下文，可以传delegate,闭包等等
     /// - Returns: 成功处理返回true,未处理返回false
-    public func openURL(_ url: URLConvertible, context: Any?) -> Bool {
+    public func openURL(_ url: URLConvertible, context: Any?, animated: Bool) -> Bool {
         /// 先判断是不是handler的形式
         if let handler = self.handler(for: url, context: context) {
             return handler()
@@ -56,11 +56,11 @@ import URLMatcher
         if let viewController = self.viewController(for: url, context: context) {
             
             if Int(url.queryParameters["isPresent"] ?? "0") == 1 {
-                self.presentViewController(viewController, wrap: nil, from: nil, animated: true, completion: nil)
+                self.presentViewController(viewController, wrap: nil, from: nil, animated: animated, completion: nil)
                 return true
             }
             
-            self.pushViewController(viewController)
+            self.pushViewController(viewController, from: nil, animated: animated)
             return true
         }
         
@@ -72,17 +72,22 @@ extension Navigator {
     
     @discardableResult
     public class func open(_ url: URLConvertible, context: Any? = nil) -> Bool {
-        return Navigator.shared.openURL(url, context:context)
+        return Navigator.shared.openURL(url, context:context, animated: true)
     }
     
     @discardableResult
     @objc public class func open(_ url: String, context: Any? = nil) -> Bool {
-        return Navigator.shared.openURL(url, context:context)
+        return Navigator.shared.openURL(url, context:context, animated: true)
     }
     
     @discardableResult
     @objc public class func open(_ url: String) -> Bool {
-        return Navigator.shared.openURL(url, context:nil)
+        return Navigator.shared.openURL(url, context:nil, animated: true)
+    }
+    
+    @discardableResult
+    @objc public class func open(_ url: String, context: Any?, animated: Bool) -> Bool {
+        return Navigator.shared.openURL(url, context:context, animated: animated)
     }
 }
 
