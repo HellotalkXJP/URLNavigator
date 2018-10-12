@@ -66,6 +66,10 @@ import URLMatcher
         
         return false
     }
+    
+    public func openURL(_ url: URLConvertible, context: Any?) -> Bool {
+        return openURL(url, context: context, animated: true)
+    }
 }
 
 extension Navigator {
