@@ -47,6 +47,9 @@ import URLMatcher
     ///   - context: 上下文，可以传delegate,闭包等等
     /// - Returns: 成功处理返回true,未处理返回false
     public func openURL(_ url: URLConvertible, context: Any?, animated: Bool) -> Bool {
+        
+        UIApplication.shared.keyWindow?.endEditing(true)
+        
         /// 先判断是不是handler的形式
         if let handler = self.handler(for: url, context: context) {
             return handler()
